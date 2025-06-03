@@ -13,7 +13,14 @@ namespace GarageMasterBE.Models
         public string Password { get; set; } = null!;
 
         [Required]
-        [Compare("Password", ErrorMessage = "Mật khẩu xác nhận không khớp.")]
-        public string ConfirmPassword { get; set; } = null!;
+        [MinLength(3, ErrorMessage = "Tên người dùng phải có ít nhất 3 ký tự.")]
+        [MaxLength(50, ErrorMessage = "Tên người dùng không được vượt quá 50 ký tự.")]
+        [RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "Tên người dùng chỉ được chứa chữ cái, số và dấu gạch dưới.")]
+        public string username { get; set; } = null!;
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; } = DateTime.MinValue;
     }
 }
