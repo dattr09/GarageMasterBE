@@ -51,3 +51,4 @@
 /Users/trandat/Desktop/GarageMasterBE/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
 /Users/trandat/Desktop/GarageMasterBE/bin/Debug/net9.0/MimeKit.dll
 /Users/trandat/Desktop/GarageMasterBE/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/trandat/Desktop/GarageMasterBE/obj/Debug/net9.0/GarageMasterBE.sourcelink.json

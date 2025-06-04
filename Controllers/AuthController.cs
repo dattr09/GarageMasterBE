@@ -82,7 +82,6 @@ public async Task<IActionResult> Register([FromBody] RegisterRequest request)
             return Ok(new
             {
                 message = "Đăng nhập thành công",
-                token,
                 user = new
                 {
                     user.Id,
