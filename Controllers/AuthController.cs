@@ -19,39 +19,39 @@ namespace GarageMasterBE.Controllers
             _jwtService = jwtService;
         }
 
-      [HttpPost("register")]
-public async Task<IActionResult> Register([FromBody] RegisterRequest request)
-{
-    if (!ModelState.IsValid)
-        return BadRequest(ModelState);
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-    var existingUser = await _userService.GetByEmailAsync(request.Email);
-    if (existingUser != null)
-        return BadRequest("Email đã được sử dụng.");
+            var existingUser = await _userService.GetByEmailAsync(request.Email);
+            if (existingUser != null)
+                return BadRequest("Email đã được sử dụng.");
 
-    var user = await _userService.CreateUserAsync(request.Email, request.Password);
-    if (user == null)
-        return StatusCode(500, "Đăng ký không thành công.");
+            var user = await _userService.CreateUserAsync(request.Email, request.Password);
+            if (user == null)
+                return StatusCode(500, "Đăng ký không thành công.");
 
-    // Kiểm tra email và mã xác nhận trước khi gửi mail
-    if (string.IsNullOrWhiteSpace(user.Email))
-        return StatusCode(500, "Email của người dùng không hợp lệ.");
+            // Kiểm tra email và mã xác nhận trước khi gửi mail
+            if (string.IsNullOrWhiteSpace(user.Email))
+                return StatusCode(500, "Email của người dùng không hợp lệ.");
 
-    if (string.IsNullOrWhiteSpace(user.EmailConfirmationCode))
-        return StatusCode(500, "Mã xác nhận email không hợp lệ.");
+            if (string.IsNullOrWhiteSpace(user.EmailConfirmationCode))
+                return StatusCode(500, "Mã xác nhận email không hợp lệ.");
 
-    try
-    {
-        await _emailService.SendConfirmationEmailAsync(user.Email, user.EmailConfirmationCode);
-    }
-    catch (Exception ex)
-    {
-        // Log lỗi (nên có logger ở đây)
-        return StatusCode(500, $"Gửi email xác nhận thất bại: {ex.Message}");
-    }
+            try
+            {
+                await _emailService.SendConfirmationEmailAsync(user.Email, user.EmailConfirmationCode);
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi (nên có logger ở đây)
+                return StatusCode(500, $"Gửi email xác nhận thất bại: {ex.Message}");
+            }
 
-    return Ok(new { message = "Đăng ký thành công. Vui lòng kiểm tra email để xác nhận tài khoản." });
-}
+            return Ok(new { message = "Đăng ký thành công. Vui lòng kiểm tra email để xác nhận tài khoản." });
+        }
 
 
         [HttpPost("confirm-email")]
@@ -88,6 +88,21 @@ public async Task<IActionResult> Register([FromBody] RegisterRequest request)
                     user.Email
                 }
             });
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest req)
+        {
+            await _userService.ForgotPasswordAsync(req.Email, _emailService);
+            return Ok(new { message = "Nếu email tồn tại, mật khẩu mới đã được gửi!" });
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest req)
+        {
+            var ok = await _userService.ResetPasswordWithCurrentAsync(req.Email, req.CurrentPassword, req.NewPassword);
+            if (!ok) return BadRequest(new { message = "Mật khẩu hiện tại không đúng hoặc email không tồn tại." });
+            return Ok(new { message = "Đổi mật khẩu thành công!" });
         }
     }
 }
