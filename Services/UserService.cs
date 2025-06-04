@@ -47,7 +47,7 @@ namespace GarageMasterBE.Services
                 PasswordHash = HashPassword(password),
                 EmailConfirmed = false,
                 EmailConfirmationCode = GenerateConfirmationCode(),
-                EmailConfirmationCodeExpiry = DateTime.UtcNow.AddMinutes(10) // Mã hiệu lực 10 phút
+                EmailConfirmationCodeExpiry = DateTime.UtcNow.AddMinutes(1) // Mã hiệu lực 1 phút
             };
 
             await _users.InsertOneAsync(user);
@@ -97,6 +97,49 @@ namespace GarageMasterBE.Services
                 return user;
 
             return null;
+        }
+
+        // Đặt lại mật khẩu qua email
+        public async Task<bool> ForgotPasswordAsync(string email, EmailService emailService)
+        {
+            var user = await GetByEmailAsync(email);
+            if (user == null) return true; // Không tiết lộ
+
+            // Sinh mật khẩu mới random
+            var newPassword = GenerateRandomPassword(10); // 10 ký tự gồm chữ + số
+            var newHash = HashPassword(newPassword);
+
+            // Cập nhật mật khẩu mới
+            var update = Builders<User>.Update.Set(u => u.PasswordHash, newHash);
+            await _users.UpdateOneAsync(u => u.Id == user.Id, update);
+
+            // Gửi email mật khẩu mới
+            await emailService.SendNewPasswordEmailAsync(email, newPassword);
+
+            return true;
+        }
+
+        // Hàm sinh mật khẩu random
+        private string GenerateRandomPassword(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        // Đặt lại mật khẩu với mật khẩu hiện tại
+        public async Task<bool> ResetPasswordWithCurrentAsync(string email, string currentPassword, string newPassword)
+        {
+            var user = await GetByEmailAsync(email);
+            if (user == null) return false;
+            if (!VerifyPassword(currentPassword, user.PasswordHash)) return false;
+
+            var newHash = HashPassword(newPassword);
+            var update = Builders<User>.Update.Set(u => u.PasswordHash, newHash);
+            await _users.UpdateOneAsync(u => u.Id == user.Id, update);
+
+            return true;
         }
     }
 }
