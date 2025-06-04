@@ -37,6 +37,11 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<MongoDbContext>().Databas
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<EmailService>();
 
+// Đăng ký BrandService và PartsService
+builder.Services.AddScoped<BrandService>();
+builder.Services.AddScoped<PartsService>();
+
+
 // Đăng ký JwtService dùng để tạo token (singleton hoặc scoped cũng được)
 builder.Services.AddSingleton<JwtService>();
 
