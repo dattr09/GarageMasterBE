@@ -33,5 +33,8 @@ namespace GarageMasterBE.Models
         [BsonElement("brandId")]
         [BsonRepresentation(BsonType.ObjectId)]
         public string BrandId { get; set; } = null!; // Thêm để phân loại theo hãng xe
+
+        [BsonElement("image")]
+        public string? Image { get; set; } // Link ảnh phụ tùng
     }
 }

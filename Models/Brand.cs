@@ -11,5 +11,8 @@ namespace GarageMasterBE.Models
 
         [BsonElement("name")]
         public string Name { get; set; } = null!;
+
+        [BsonElement("image")]
+        public string? Image { get; set; }
     }
 }
