@@ -1,6 +1,6 @@
 # Build folders
-obj/
 bin/
+obj/
 
 # User-specific files
 *.user
