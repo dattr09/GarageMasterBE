@@ -1604,23 +1604,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\NGUYEN-TU-LAP\\.nuget\\packages\\": {},
+    "C:\\Users\\DatG\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GarageMaster\\GarageMasterBE\\GarageMasterBE.csproj",
+      "projectUniqueName": "C:\\Users\\DatG\\Desktop\\GarageMasterBE\\GarageMasterBE.csproj",
       "projectName": "GarageMasterBE",
-      "projectPath": "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GarageMaster\\GarageMasterBE\\GarageMasterBE.csproj",
-      "packagesPath": "C:\\Users\\NGUYEN-TU-LAP\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\NGUYEN-TU-LAP\\Desktop\\GarageMaster\\GarageMasterBE\\obj\\",
+      "projectPath": "C:\\Users\\DatG\\Desktop\\GarageMasterBE\\GarageMasterBE.csproj",
+      "packagesPath": "C:\\Users\\DatG\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\DatG\\Desktop\\GarageMasterBE\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\NGUYEN-TU-LAP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\DatG\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1645,9 +1645,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -1693,7 +1693,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
