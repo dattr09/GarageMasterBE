@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GarageMasterBE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c55bb30e6f1fa071e292cdb05501740af5bc037")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2adae4976a276c885b78f8eb02b1d9511e4bcb8e")]
 [assembly: System.Reflection.AssemblyProductAttribute("GarageMasterBE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GarageMasterBE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
