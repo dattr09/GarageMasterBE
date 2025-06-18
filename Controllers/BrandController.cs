@@ -1,5 +1,6 @@
 using GarageMasterBE.Models;
 using GarageMasterBE.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GarageMasterBE.Controllers
@@ -40,6 +41,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpPost]
+         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Create([FromBody] Brand brand)
         {
             await _brandService.CreateAsync(brand);

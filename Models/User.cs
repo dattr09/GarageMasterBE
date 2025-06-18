@@ -6,7 +6,7 @@ namespace GarageMasterBE.Models
 {
     public class User
     {
-        [BsonId] // Khóa chính trong MongoDB
+        [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 
@@ -24,5 +24,13 @@ namespace GarageMasterBE.Models
 
         [BsonElement("emailConfirmationCodeExpiry")]
         public DateTime? EmailConfirmationCodeExpiry { get; set; }
+
+        [BsonElement("role")]
+        public string Role { get; set; } = "Customer"; // Customer | Employee
+
+        [BsonElement("linkedEntityId")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? LinkedEntityId { get; set; }    // CustomerId hoặc EmployeeId
     }
+    
 }
