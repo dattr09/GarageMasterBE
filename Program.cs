@@ -42,7 +42,7 @@ builder.Services.AddScoped<BrandService>();
 builder.Services.AddScoped<PartsService>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<MotoService>();
-
+builder.Services.AddScoped<EmployeeService>(); 
 
 // Đăng ký JwtService dùng để tạo token (singleton hoặc scoped cũng được)
 builder.Services.AddSingleton<JwtService>();

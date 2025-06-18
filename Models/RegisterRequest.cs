@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace GarageMasterBE.Models
 {
@@ -12,11 +13,10 @@ namespace GarageMasterBE.Models
         [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự.")]
         public string Password { get; set; } = null!;
 
-        [Required]
-        [MinLength(3, ErrorMessage = "Tên người dùng phải có ít nhất 3 ký tự.")]
-        [MaxLength(50, ErrorMessage = "Tên người dùng không được vượt quá 50 ký tự.")]
-        [RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "Tên người dùng chỉ được chứa chữ cái, số và dấu gạch dưới.")]
-        public string username { get; set; } = null!;
+
+        [BsonElement("role")]
+        public string Role { get; set; } = "Customer"; // Customer | Employee
+          
 
         [Required]
         [DataType(DataType.Date)]
