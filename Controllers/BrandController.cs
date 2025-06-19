@@ -45,6 +45,7 @@ namespace GarageMasterBE.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Create([FromBody] Brand brand)
         {
             await _brandService.CreateAsync(brand);

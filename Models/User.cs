@@ -6,7 +6,7 @@ namespace GarageMasterBE.Models
 {
     public class User
     {
-        [BsonId] // Khóa chính trong MongoDB
+        [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
 

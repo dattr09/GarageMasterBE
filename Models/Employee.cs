@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace GarageMasterBE.Models
 {
-    public class Customer
+    public class Employee
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -11,7 +11,7 @@ namespace GarageMasterBE.Models
 
         [BsonElement("userId")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string UserId { get; set; } = null!;
+        public string UserId { get; set; } = null!; // → Chính là Id của User
 
         [BsonElement("name")]
         public string Name { get; set; } = null!;
@@ -21,8 +21,21 @@ namespace GarageMasterBE.Models
 
         [BsonElement("address")]
         public string Address { get; set; } = null!;
-        
-        [BsonElement("createdAt")]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [BsonElement("employeeRole")]
+        [BsonRepresentation(BsonType.String)]
+        public EmployeeRole EmployeeRole { get; set; } = EmployeeRole.Staff;
+
+        [BsonElement("dateJoined")]
+        public DateTime DateJoined { get; set; } = DateTime.UtcNow;
+    }
+
+    public enum EmployeeRole
+    {
+        Admin,
+        Manager,
+        Accountant,
+        Mechanic,
+        Staff
     }
 }

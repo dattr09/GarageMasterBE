@@ -20,7 +20,7 @@ namespace GarageMasterBE.Services
             return await _customersCollection.Find(_ => true).ToListAsync();
         }
 
-        // Lấy khách hàng theo ID
+        // Lấy khách hàng theo ID   
         public async Task<Customer?> GetByIdAsync(string id)
         {
             return await _customersCollection.Find(c => c.Id == id).FirstOrDefaultAsync();
@@ -58,9 +58,5 @@ namespace GarageMasterBE.Services
         }
 
         // Tìm kiếm khách hàng theo email chính xác
-        public async Task<Customer?> GetByEmailAsync(string email)
-        {
-            return await _customersCollection.Find(c => c.Email == email).FirstOrDefaultAsync();
-        }
     }
 }
