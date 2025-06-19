@@ -24,5 +24,8 @@ namespace GarageMasterBE.Models
 
         [BsonElement("emailConfirmationCodeExpiry")]
         public DateTime? EmailConfirmationCodeExpiry { get; set; }
+
+        [BsonElement("role")]
+        public string Role { get; set; } = "Customer";
     }
 }

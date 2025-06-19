@@ -17,9 +17,12 @@ namespace GarageMasterBE.Models
 
         [BsonElement("customerId")]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
-        public string CustomerId { get; set; } = null!; // Tham chiếu bảng Customer (_id)
+        public string CustomerId { get; set; } = null!;
 
         [BsonElement("dateOfSent")]
         public DateTime DateOfSent { get; set; } = DateTime.Now;
+
+        [BsonElement("notes")]
+        public string? Notes { get; set; }
     }
 }
