@@ -22,13 +22,13 @@ namespace GarageMasterBE.Services
             _expiryMinutes = int.Parse(configuration["JwtSettings:ExpiryMinutes"]);
         }
 
-        public string GenerateToken(string userId, string email)
+        public string GenerateToken(string userId, string email, string role)
         {
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId),
                 new Claim(JwtRegisteredClaimNames.Email, email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(ClaimTypes.Role, role)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
@@ -39,7 +39,8 @@ namespace GarageMasterBE.Services
                 audience: _audience,
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(_expiryMinutes),
-                signingCredentials: creds);
+                signingCredentials: creds
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
