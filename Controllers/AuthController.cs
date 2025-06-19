@@ -57,14 +57,17 @@ namespace GarageMasterBE.Controllers
         [HttpPost("confirm-email")]
         public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailRequest request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var success = await _userService.ConfirmEmailAsync(request.Email, request.Code);
+            if (!success)
+                return BadRequest(new { message = "Mã xác thực không đúng hoặc đã hết hạn." });
 
-            var result = await _userService.ConfirmEmailAsync(request.Email, request.Code);
-            if (!result)
-                return BadRequest("Mã xác thực không đúng hoặc đã hết hạn.");
+            var user = await _userService.GetByEmailAsync(request.Email);
+            if (user == null)
+                return BadRequest(new { message = "Không tìm thấy người dùng." });
 
-            return Ok(new { message = "Xác thực email thành công. Bạn có thể đăng nhập." });
+            var token = _jwtService.GenerateToken(user.Id, user.Email, user.Role);
+
+            return Ok(new { message = "Xác thực email thành công.", token });
         }
 
         [HttpPost("login")]
@@ -75,13 +78,14 @@ namespace GarageMasterBE.Controllers
 
             var user = await _userService.ValidateUserAsync(request.Email, request.Password);
             if (user == null)
-                return Unauthorized("Email hoặc mật khẩu không đúng, hoặc chưa xác thực email.");
+                return Unauthorized(new { message = "Email hoặc mật khẩu không đúng, hoặc chưa xác thực email." });
 
-            var token = _jwtService.GenerateToken(user.Id!, user.Email);
+            var token = _jwtService.GenerateToken(user.Id, user.Email, user.Role);
 
             return Ok(new
             {
                 message = "Đăng nhập thành công",
+                token,
                 user = new
                 {
                     user.Id,

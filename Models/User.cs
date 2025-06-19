@@ -26,11 +26,6 @@ namespace GarageMasterBE.Models
         public DateTime? EmailConfirmationCodeExpiry { get; set; }
 
         [BsonElement("role")]
-        public string Role { get; set; } = "Customer"; // Customer | Employee
-
-        [BsonElement("linkedEntityId")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? LinkedEntityId { get; set; }    // CustomerId hoặc EmployeeId
+        public string Role { get; set; } = "Customer";
     }
-    
 }

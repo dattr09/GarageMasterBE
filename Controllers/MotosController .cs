@@ -1,5 +1,6 @@
 using GarageMasterBE.Models;
 using GarageMasterBE.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GarageMasterBE.Controllers
@@ -17,6 +18,7 @@ namespace GarageMasterBE.Controllers
 
         // ✅ GET: api/Motos
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<ActionResult<List<Moto>>> GetAll()
         {
             var motos = await _motoService.GetAllAsync();
@@ -25,6 +27,7 @@ namespace GarageMasterBE.Controllers
 
         // ✅ GET: api/Motos/{licensePlate}
         [HttpGet("{licensePlate}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<ActionResult<Moto>> GetByLicensePlate(string licensePlate)
         {
             var moto = await _motoService.GetByLicensePlateAsync(licensePlate);
@@ -36,6 +39,7 @@ namespace GarageMasterBE.Controllers
 
         // ✅ GET: api/Motos/by-customer/{customerId}
         [HttpGet("by-customer/{customerId}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<ActionResult<List<Moto>>> GetByCustomerId(string customerId)
         {
             var motos = await _motoService.GetByCustomerIdAsync(customerId);
@@ -44,7 +48,8 @@ namespace GarageMasterBE.Controllers
 
         // ✅ POST: api/Motos
         [HttpPost]
-        public async Task<ActionResult<Moto>> Create(Moto moto)
+        [Authorize(Roles = "Admin,Employee")]
+        public async Task<IActionResult> Create([FromBody] Moto moto)
         {
             await _motoService.CreateAsync(moto);
             return CreatedAtAction(nameof(GetByLicensePlate), new { licensePlate = moto.LicensePlate }, moto);
@@ -52,6 +57,7 @@ namespace GarageMasterBE.Controllers
 
         // ✅ PUT: api/Motos/{licensePlate}
         [HttpPut("{licensePlate}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Update(string licensePlate, Moto updatedMoto)
         {
             var existing = await _motoService.GetByLicensePlateAsync(licensePlate);
@@ -65,6 +71,7 @@ namespace GarageMasterBE.Controllers
 
         // ✅ DELETE: api/Motos/{licensePlate}
         [HttpDelete("{licensePlate}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Delete(string licensePlate)
         {
             var existing = await _motoService.GetByLicensePlateAsync(licensePlate);
