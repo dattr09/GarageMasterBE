@@ -1,5 +1,6 @@
 using GarageMasterBE.Models;
 using GarageMasterBE.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GarageMasterBE.Controllers
@@ -16,6 +17,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetAll()
         {
             var parts = await _partsService.GetAllAsync();
@@ -23,6 +25,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetById(string id)
         {
             var part = await _partsService.GetByIdAsync(id);
@@ -33,6 +36,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("searchByName")]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> SearchByName([FromQuery] string name)
         {
             var parts = await _partsService.GetByNameAsync(name);
@@ -40,6 +44,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("byBrand/{brandId:length(24)}")]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetByBrandId(string brandId)
         {
             var parts = await _partsService.GetByBrandIdAsync(brandId);
@@ -47,6 +52,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] Parts part)
         {
             try
@@ -61,6 +67,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(string id, [FromBody] Parts updatedPart)
         {
             try
@@ -83,6 +90,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             var existing = await _partsService.GetByIdAsync(id);

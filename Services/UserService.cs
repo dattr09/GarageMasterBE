@@ -47,7 +47,8 @@ namespace GarageMasterBE.Services
                 PasswordHash = HashPassword(password),
                 EmailConfirmed = false,
                 EmailConfirmationCode = GenerateConfirmationCode(),
-                EmailConfirmationCodeExpiry = DateTime.UtcNow.AddMinutes(1) // Mã hiệu lực 1 phút
+                EmailConfirmationCodeExpiry = DateTime.UtcNow.AddMinutes(1),
+                Role = "Customer"
             };
 
             await _users.InsertOneAsync(user);

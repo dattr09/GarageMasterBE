@@ -17,6 +17,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetAll()
         {
             var brands = await _brandService.GetAllAsync();
@@ -24,6 +25,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetById(string id)
         {
             var brand = await _brandService.GetByIdAsync(id);
@@ -34,6 +36,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("search")]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> SearchByName([FromQuery] string name)
         {
             var brands = await _brandService.GetByNameAsync(name);
@@ -41,7 +44,8 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpPost]
-         [Authorize(Roles = "Admin,Employee")]
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Create([FromBody] Brand brand)
         {
             await _brandService.CreateAsync(brand);
@@ -49,6 +53,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(string id, [FromBody] Brand updatedBrand)
         {
             var existing = await _brandService.GetByIdAsync(id);
@@ -64,6 +69,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             var existing = await _brandService.GetByIdAsync(id);
