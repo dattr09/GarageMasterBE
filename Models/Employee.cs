@@ -11,7 +11,7 @@ namespace GarageMasterBE.Models
 
         [BsonElement("userId")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string UserId { get; set; } = null!; // → Chính là Id của User
+        public string UserId { get; set; } = null!;
 
         [BsonElement("name")]
         public string Name { get; set; } = null!;
@@ -24,7 +24,7 @@ namespace GarageMasterBE.Models
 
         [BsonElement("employeeRole")]
         [BsonRepresentation(BsonType.String)]
-        public EmployeeRole EmployeeRole { get; set; } = EmployeeRole.Staff;
+        public EmployeeRole EmployeeRole { get; set; } = EmployeeRole.Employee;
 
         [BsonElement("dateJoined")]
         public DateTime DateJoined { get; set; } = DateTime.UtcNow;
@@ -36,6 +36,6 @@ namespace GarageMasterBE.Models
         Manager,
         Accountant,
         Mechanic,
-        Staff
+        Employee
     }
 }

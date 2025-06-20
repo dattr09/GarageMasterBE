@@ -27,7 +27,7 @@ namespace GarageMasterBE.Controllers
 
         // GET: api/Customers/{id}
         [HttpGet("{id:length(24)}")]
-        [Authorize(Roles = "Admin,Employee")]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<ActionResult<Customer>> GetById(string id)
         {
             var customer = await _customerService.GetByIdAsync(id);

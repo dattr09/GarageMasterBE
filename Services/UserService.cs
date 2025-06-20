@@ -39,7 +39,7 @@ namespace GarageMasterBE.Services
         }
 
         // Tạo user mới (chưa xác thực email)
-        public async Task<User> CreateUserAsync(string email, string password)
+        public async Task<User> CreateUserAsync(string email, string password, string role = "Customer")
         {
             var user = new User
             {
@@ -48,7 +48,7 @@ namespace GarageMasterBE.Services
                 EmailConfirmed = false,
                 EmailConfirmationCode = GenerateConfirmationCode(),
                 EmailConfirmationCodeExpiry = DateTime.UtcNow.AddMinutes(1),
-                Role = "Customer"
+                Role = role // <-- thêm dòng này
             };
 
             await _users.InsertOneAsync(user);
@@ -141,6 +141,12 @@ namespace GarageMasterBE.Services
             await _users.UpdateOneAsync(u => u.Id == user.Id, update);
 
             return true;
+        }
+
+        public async Task<bool> DeleteByIdAsync(string userId)
+        {
+            var result = await _users.DeleteOneAsync(u => u.Id == userId);
+            return result.DeletedCount > 0;
         }
     }
 }
