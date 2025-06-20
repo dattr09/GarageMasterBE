@@ -49,7 +49,7 @@ namespace GarageMasterBE.Controllers
         // POST: api/Customers
         [HttpPost]
         [Authorize(Roles = "Admin,Employee")]
-        public async Task<ActionResult<Customer>> Create(Customer customer)
+        public async Task<ActionResult<Customer>> Create([FromBody] Customer customer) // Thêm [FromBody]
         {
             await _customerService.CreateAsync(customer);
             return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
@@ -58,7 +58,7 @@ namespace GarageMasterBE.Controllers
         // PUT: api/Customers/{id}
         [HttpPut("{id:length(24)}")]
         [Authorize(Roles = "Admin,Employee")]
-        public async Task<IActionResult> Update(string id, Customer updatedCustomer)
+        public async Task<IActionResult> Update(string id, [FromBody] Customer updatedCustomer) // Thêm [FromBody]
         {
             var existingCustomer = await _customerService.GetByIdAsync(id);
             if (existingCustomer == null)

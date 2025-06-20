@@ -21,8 +21,11 @@ namespace GarageMasterBE.Models
 
         [BsonElement("address")]
         public string Address { get; set; } = null!;
-        
+
         [BsonElement("createdAt")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [BsonElement("email")]
+        public string Email { get; set; } = null!;
     }
 }
