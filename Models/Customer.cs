@@ -16,6 +16,9 @@ namespace GarageMasterBE.Models
         [BsonElement("name")]
         public string Name { get; set; } = null!;
 
+        [BsonElement("email")]
+        public string Email { get; set; } = null!;
+
         [BsonElement("phone")]
         public string Phone { get; set; } = null!;
 
@@ -24,8 +27,5 @@ namespace GarageMasterBE.Models
 
         [BsonElement("createdAt")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        [BsonElement("email")]
-        public string Email { get; set; } = null!;
     }
 }
