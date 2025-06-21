@@ -47,6 +47,7 @@ builder.Services.AddScoped<RepairOrderService>();
 builder.Services.AddScoped<RepairDetailService>();
 builder.Services.AddScoped<ReviewService>();
 builder.Services.AddScoped<InvoiceService>();
+builder.Services.AddScoped<OrderService>();
 
 // Đăng ký JwtService dùng để tạo token (singleton hoặc scoped cũng được)
 builder.Services.AddSingleton<JwtService>();
