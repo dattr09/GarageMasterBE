@@ -17,7 +17,6 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetAll()
         {
             var parts = await _partsService.GetAllAsync();
@@ -25,7 +24,6 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("{id:length(24)}")]
-        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetById(string id)
         {
             var part = await _partsService.GetByIdAsync(id);
@@ -36,7 +34,6 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("searchByName")]
-        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> SearchByName([FromQuery] string name)
         {
             var parts = await _partsService.GetByNameAsync(name);
@@ -44,7 +41,6 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet("byBrand/{brandId:length(24)}")]
-        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetByBrandId(string brandId)
         {
             var parts = await _partsService.GetByBrandIdAsync(brandId);
