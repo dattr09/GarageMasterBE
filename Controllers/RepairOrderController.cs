@@ -39,12 +39,12 @@ namespace GarageMasterBE.Controllers
       if (string.IsNullOrEmpty(order.CustomerId) ||
           string.IsNullOrEmpty(order.LicensePlate) ||
           string.IsNullOrEmpty(order.Description) ||
+          string.IsNullOrEmpty(order.EmployeeId) || // Bắt buộc có employeeId
           !Enum.IsDefined(typeof(RepairOrderStatus), order.Status))
       {
         return BadRequest("Thiếu hoặc sai định dạng trường dữ liệu!");
       }
 
-      // Nếu CreatedAt chưa có, tự động set
       if (order.CreatedAt == default)
         order.CreatedAt = DateTime.UtcNow;
 

@@ -30,6 +30,10 @@ namespace GarageMasterBE.Models
 
     [BsonElement("totalCost")]
     public decimal TotalCost { get; set; } = 0;
+
+    [BsonElement("employeeId")]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string EmployeeId { get; set; } = null!;
   }
 
   public enum RepairOrderStatus
