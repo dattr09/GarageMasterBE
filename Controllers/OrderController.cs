@@ -18,7 +18,6 @@ namespace GarageMasterBE.Controllers
 
     // POST: api/Order
     [HttpPost]
-    [Authorize(Roles = "Customer")]
     public async Task<IActionResult> Create([FromBody] Order order)
     {
       if (order == null || order.Items == null || order.Items.Count == 0)
