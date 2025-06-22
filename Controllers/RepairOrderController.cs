@@ -33,6 +33,7 @@ namespace GarageMasterBE.Controllers
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin,Employee")]
     public async Task<IActionResult> Create([FromBody] RepairOrder order)
     {
       // Validate các trường bắt buộc
@@ -68,17 +69,8 @@ namespace GarageMasterBE.Controllers
       return NoContent();
     }
 
-    [HttpGet("test")]
-    public IActionResult Test()
-    {
-      return Ok(new
-      {
-        message = "test",
-        status = "success"
-      });
-    }
-
     [HttpDelete("{id:length(24)}")]
+    [Authorize(Roles = "Admin,Employee")]
     public async Task<IActionResult> Delete(string id)
     {
       var existing = await _repairOrderService.GetByIdAsync(id);

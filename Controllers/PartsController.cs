@@ -101,7 +101,6 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpPut("{id:length(24)}/quantity")]
-        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> UpdateQuantity(string id, [FromBody] QuantityUpdateModel model)
         {
             var part = await _partsService.GetByIdAsync(id);

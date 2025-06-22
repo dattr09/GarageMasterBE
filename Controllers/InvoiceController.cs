@@ -1,6 +1,7 @@
 using GarageMasterBE.Models;
 using GarageMasterBE.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GarageMasterBE.Controllers
 {
@@ -16,6 +17,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CreateInvoice([FromBody] CreateInvoiceRequest request)
         {
             try
@@ -30,6 +32,7 @@ namespace GarageMasterBE.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> GetAllInvoices()
         {
             var invoices = await _invoiceService.GetAllInvoicesAsync();
