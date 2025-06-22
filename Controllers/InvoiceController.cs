@@ -38,5 +38,18 @@ namespace GarageMasterBE.Controllers
             var invoices = await _invoiceService.GetAllInvoicesAsync();
             return Ok(invoices);
         }
+
+        // Lấy hóa đơn của chính customer đang đăng nhập
+        [HttpGet("my")]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> GetMyInvoices()
+        {
+            var userId = User.FindFirst("id")?.Value;
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var invoices = await _invoiceService.GetInvoicesByCustomerIdAsync(userId);
+            return Ok(invoices);
+        }
     }
 }
