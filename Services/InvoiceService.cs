@@ -44,5 +44,10 @@ namespace GarageMasterBE.Services
         {
             return await _invoices.Find(_ => true).ToListAsync();
         }
+
+        public async Task<List<Invoice>> GetInvoicesByCustomerIdAsync(string customerId)
+        {
+            return await _invoices.Find(i => i.CustomerId == customerId).ToListAsync();
+        }
     }
 }
