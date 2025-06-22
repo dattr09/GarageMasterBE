@@ -18,7 +18,7 @@ namespace GarageMasterBE.Controllers
 
     // POST: api/Order
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "Customer")]
     public async Task<IActionResult> Create([FromBody] Order order)
     {
       if (order == null || order.Items == null || order.Items.Count == 0)
@@ -27,6 +27,24 @@ namespace GarageMasterBE.Controllers
       order.CreatedAt = DateTime.UtcNow;
       var created = await _orderService.CreateAsync(order);
       return Ok(created);
+    }
+
+    // GET: api/Order
+    [HttpGet]
+    [Authorize(Roles = "Admin,Employee")]
+    public async Task<IActionResult> GetAll()
+    {
+      var orders = await _orderService.GetAllAsync();
+      return Ok(orders);
+    }
+
+    // GET: api/Order/user/{userId}
+    [HttpGet("user/{userId}")]
+    [Authorize(Roles = "Admin,Employee,Customer")]
+    public async Task<IActionResult> GetByUser(string userId)
+    {
+      var orders = await _orderService.GetByUserIdAsync(userId);
+      return Ok(orders);
     }
   }
 }

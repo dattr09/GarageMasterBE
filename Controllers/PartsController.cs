@@ -99,5 +99,23 @@ namespace GarageMasterBE.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("{id:length(24)}/quantity")]
+        [Authorize(Roles = "Admin,Employee")]
+        public async Task<IActionResult> UpdateQuantity(string id, [FromBody] QuantityUpdateModel model)
+        {
+            var part = await _partsService.GetByIdAsync(id);
+            if (part == null)
+                return NotFound();
+
+            part.Quantity += model.QuantityChange;
+            if (part.Quantity < 0) part.Quantity = 0;
+
+            var success = await _partsService.UpdateAsync(id, part);
+            if (!success)
+                return BadRequest(new { message = "Cập nhật số lượng thất bại" });
+
+            return Ok(part);
+        }
     }
 }
