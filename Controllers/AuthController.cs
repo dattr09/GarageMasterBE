@@ -89,7 +89,8 @@ namespace GarageMasterBE.Controllers
                 user = new
                 {
                     user.Id,
-                    user.Email
+                    user.Email,
+                    user.Role
                 }
             });
         }
